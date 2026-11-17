@@ -199,66 +199,66 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: frontend-lcov.info server-lcov.info api-lcov.info
-  # custom-config-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: "Check out Git repository"
-  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
-  #     - name: "Use Node.js"
-  #       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
-  #       with:
-  #         node-version: ${{ env.NODE_DEFAULT_VERSION }}
-  #     - name: "Install application"
-  #       # if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-  #       run: |
-  #         npm install --global npm@${{ env.NPM_VERSION }}
-  #         npm install
-  #     - name: "Execute server tests for each custom configuration"
-  #       uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 #v4.0.0
-  #       with:
-  #         timeout_minutes: 30
-  #         max_attempts: 3
-  #         command: >
-  #           NODE_ENV=7ms npm run test:server &&
-  #           NODE_ENV=addo npm run test:server &&
-  #           NODE_ENV=bodgeit npm run test:server &&
-  #           NODE_ENV=ctf npm run test:server &&
-  #           NODE_ENV=fbctf npm run test:server &&
-  #           NODE_ENV=juicebox npm run test:server &&
-  #           NODE_ENV=mozilla npm run test:server &&
-  #           NODE_ENV=oss npm run test:server &&
-  #           NODE_ENV=quiet npm run test:server &&
-  #           NODE_ENV=tutorial npm run test:server &&
-  #           NODE_ENV=unsafe npm run test:server
-  # e2e-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: "Check out Git repository"
-  #       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
-  #     - name: "Use Node.js"
-  #       uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
-  #       with:
-  #         node-version: ${{ env.NODE_DEFAULT_VERSION }}
-  #     - name: "Install CLI tools"
-  #       run: |
-  #         npm install --global npm@${{ env.NPM_VERSION }}
-  #         npm install --global @angular/cli
-  #     - name: "Install application"
-  #       run: npm install
-  #     - name: "Execute end-to-end tests"
-  #       uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
-  #       with:
-  #         install: false
-  #         browser: chrome
-  #         start: npm start
-  #         wait-on: http://127.0.0.1:3000
-  #         wait-on-timeout: 90
-  #         record: true
-  #       env:
-  #         SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
-  #         ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
-  #         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  custom-config-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+      - name: "Use Node.js"
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
+        with:
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
+      - name: "Install application"
+        # if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
+      - name: "Execute server tests for each custom configuration"
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 #v4.0.0
+        with:
+          timeout_minutes: 30
+          max_attempts: 3
+          command: >
+            NODE_ENV=7ms npm run test:server &&
+            NODE_ENV=addo npm run test:server &&
+            NODE_ENV=bodgeit npm run test:server &&
+            NODE_ENV=ctf npm run test:server &&
+            NODE_ENV=fbctf npm run test:server &&
+            NODE_ENV=juicebox npm run test:server &&
+            NODE_ENV=mozilla npm run test:server &&
+            NODE_ENV=oss npm run test:server &&
+            NODE_ENV=quiet npm run test:server &&
+            NODE_ENV=tutorial npm run test:server &&
+            NODE_ENV=unsafe npm run test:server
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+      - name: "Use Node.js"
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
+        with:
+          node-version: ${{ env.NODE_DEFAULT_VERSION }}
+      - name: "Install CLI tools"
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install --global @angular/cli
+      - name: "Install application"
+        run: npm install
+      - name: "Execute end-to-end tests"
+        uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
+        with:
+          install: false
+          browser: chrome
+          start: npm start
+          wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 90
+          record: true
+        env:
+          SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
+          ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   smoke-test:
     runs-on: ubuntu-latest
     env:
