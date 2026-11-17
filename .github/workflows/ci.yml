@@ -253,7 +253,7 @@ jobs:
           start: npm start
           wait-on: http://127.0.0.1:3000
           wait-on-timeout: 90
-          record: true
+          record: false
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
